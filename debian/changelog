@@ -1,0 +1,29 @@
+nsjail (3.4-1ubuntu4) noble; urgency=medium
+
+  * Add the rest of the runtime library dependencies
+
+ -- Stephen Crosby <stevecrozz@gmail.com>  Sat, 02 Aug 2025 20:56:50 -0700
+
+nsjail (3.4-1ubuntu3) noble; urgency=medium
+
+  * Rebuild against latest libkafel1
+
+ -- Stephen Crosby <stevecrozz@gmail.com>  Sat, 02 Aug 2025 19:51:44 -0700
+
+nsjail (3.4-1ubuntu2) noble; urgency=medium
+
+  * Add runtime dependency on libkafel1 
+
+ -- Stephen Crosby <stevecrozz@gmail.com>  Sat, 02 Aug 2025 00:03:17 -0700
+
+nsjail (3.4-1ubuntu1) noble; urgency=medium
+
+  * Add build dependency pkg-config
+
+ -- Stephen Crosby <stevecrozz@gmail.com>  Fri, 01 Aug 2025 23:38:16 -0700
+
+nsjail (3.4-1) noble; urgency=medium
+
+  * Initial release.
+
+ -- Stephen Crosby <stevecrozz@gmail.com>  Fri, 01 Aug 2025 19:01:31 -0700

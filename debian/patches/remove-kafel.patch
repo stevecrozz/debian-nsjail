@@ -1,0 +1,66 @@
+Index: nsjail-3.4/Makefile
+===================================================================
+--- nsjail-3.4.orig/Makefile
++++ nsjail-3.4/Makefile
+@@ -29,14 +29,14 @@ COMMON_FLAGS += -O2 -c \
+ 	-fPIE \
+ 	-Wformat -Wformat-security -Wno-format-nonliteral \
+ 	-Wall -Wextra -Werror \
+-	-Ikafel/include
++	-I/usr/lib
+ 
+ CXXFLAGS += $(USER_DEFINES) $(COMMON_FLAGS) $(shell pkg-config --cflags protobuf) \
+ 	-std=c++17 -fno-exceptions -Wno-unused -Wno-unused-parameter
+ LDFLAGS += -pie -Wl,-z,noexecstack -lpthread $(shell pkg-config --libs protobuf)
+ 
+ BIN = nsjail
+-LIBS = kafel/libkafel.a
++LIBS = -lkafel
+ SRCS_CXX = caps.cc cgroup.cc cgroup2.cc cmdline.cc config.cc contain.cc cpu.cc logs.cc mnt.cc net.cc nsjail.cc pid.cc sandbox.cc subproc.cc uts.cc user.cc util.cc
+ SRCS_H = $(SRCS_CXX:.cc=.h) macros.h
+ SRCS_PROTO = config.proto
+@@ -55,14 +55,14 @@ ifeq ($(NL3_EXISTS), yes)
+ 	LDFLAGS += $(shell pkg-config --libs libnl-route-3.0)
+ endif
+ 
+-.PHONY: all clean depend indent
++.PHONY: all clean indent
+ 
+ .o: %.cc
+ 	$(CXX) $(CXXFLAGS) $< -o $@
+ 
+ all: $(BIN)
+ 
+-$(BIN): $(LIBS) $(OBJS)
++$(BIN): $(OBJS)
+ ifneq ($(NL3_EXISTS), yes)
+ 	$(warning "============================================================")
+ 	$(warning "You probably miss libnl3(-dev)/libnl-route-3(-dev) libraries")
+@@ -70,18 +70,6 @@ ifneq ($(NL3_EXISTS), yes)
+ endif
+ 	$(CXX) -o $(BIN) $(OBJS) $(LIBS) $(LDFLAGS)
+ 
+-.PHONY: kafel_init
+-kafel_init:
+-ifeq ("$(wildcard kafel/Makefile)","")
+-	git submodule update --init
+-endif
+-
+-kafel/include/kafel.h: kafel_init
+-# LDFLAGS is unset as a workaround for Kafel using the parent LDFLAGS
+-# incorrectly.
+-kafel/libkafel.a: kafel_init
+-	LDFLAGS="" CFLAGS=-fPIE $(MAKE) -C kafel
+-
+ # Sequence of proto deps, which doesn't fit automatic make rules
+ $(SRCS_PB_O): $(SRCS_PB_H) $(SRCS_PB_CXX)
+ $(SRCS_PB_CXX) $(SRCS_PB_H): $(SRCS_PROTO)
+@@ -120,7 +108,7 @@ net.o: net.h nsjail.h logs.h subproc.h
+ nsjail.o: nsjail.h cgroup2.h cmdline.h logs.h macros.h net.h sandbox.h
+ nsjail.o: subproc.h util.h
+ pid.o: pid.h nsjail.h logs.h subproc.h
+-sandbox.o: sandbox.h nsjail.h kafel/include/kafel.h logs.h util.h
++sandbox.o: sandbox.h nsjail.h logs.h util.h
+ subproc.o: subproc.h nsjail.h cgroup.h cgroup2.h contain.h logs.h macros.h
+ subproc.o: net.h sandbox.h user.h util.h
+ uts.o: uts.h nsjail.h logs.h

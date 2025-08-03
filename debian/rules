@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-rpath-link,/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH) -L/usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+
+%:
+	dh $@
