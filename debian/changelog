@@ -1,5 +1,5 @@
-nsjail (3.3) noble; urgency=medium
+nsjail (3.4-1) unstable; urgency=medium
 
   * Initial release.
 
- -- Stephen Crosby <stevecrozz@gmail.com>  Fri, 01 Aug 2025 16:16:06 -0700
+ -- Stephen Crosby <stevecrozz@gmail.com>  Sun, 03 Aug 2025 20:36:33 -0700
