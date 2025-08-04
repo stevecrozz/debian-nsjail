@@ -11,10 +11,10 @@ Vcs-Browser: https://github.com/google/nsjail
 Vcs-Git: https://github.com/google/nsjail.git
 
 Package: nsjail
-Architecture: all
+Architecture: any
 Depends:
- ${misc:Depends}, libkafel1, libprotobuf32t64, libnl-route-3-200
-Description: A process isolation tool for Linux
+ ${misc:Depends}, ${shlibs:Depends}, libkafel1, libprotobuf32t64, libnl-route-3-200
+Description: process isolation tool for Linux
  NsJail is a process isolation tool for Linux. It utilizes Linux namespace
  subsystem, resource limits, and the seccomp-bpf syscall filters of the Linux
  kernel.

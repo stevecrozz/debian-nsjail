@@ -1,1 +1,2 @@
 nsjail usr/bin
+nsjail.1 usr/share/man/man1
